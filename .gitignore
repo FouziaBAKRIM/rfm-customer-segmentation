@@ -1,0 +1,16 @@
+# Fichiers de données générés et bruts (gros volumes)
+data.csv
+data_clean.csv
+rfm_metrics.csv
+rfm_scores.csv
+rfm_segmented.csv
+rfm_segmented.xlsx
+
+# Fichiers temporaires Microsoft Office (lock files)
+~$*
+
+# Environnement Python & Cache
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
