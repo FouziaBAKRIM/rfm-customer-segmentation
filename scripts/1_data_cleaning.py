@@ -19,10 +19,16 @@ df_clean = df.dropna(subset=['CustomerID'])
 print(f"\nLignes après suppression des CustomerID manquants : {len(df_clean)}")
 
 # 4. Suppression des annulations (Invoices commençant par 'C' ou Quantités <= 0)
+df_clean = df_clean[~df_clean['InvoiceNo'].astype(str).str.startswith('C')]
 df_clean = df_clean[df_clean['Quantity'] > 0]
 
 # 5. Suppression des prix unitaires absurdes (Prix <= 0)
 df_clean = df_clean[df_clean['UnitPrice'] > 0]
+
+before = len(df_clean)
+df_clean = df_clean.drop_duplicates()
+df_clean = df_clean[df_clean['UnitPrice'] > 0].copy()
+print(f"Duplicate rows removed: {before - len(df_clean)}")
 
 # 6. Création de la colonne du Montant Total (TotalAmount)
 df_clean['TotalAmount'] = df_clean['Quantity'] * df_clean['UnitPrice']

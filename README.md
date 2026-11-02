@@ -13,12 +13,13 @@ Un pipeline complet de Data Analytics combinant **Python (Pandas)** pour le trai
 ## 🎯 Contexte & Objectifs Business
 
 Dans le secteur du e-commerce, l'acquisition de nouveaux clients coûte nettement plus cher que la fidélisation des clients existants. L'objectif de ce projet est de :
+
 1. Nettoyer et transformer les données brutes de transactions e-commerce (`Online Retail Dataset`).
 2. Calculer les métriques individuelles **RFM** :
    - **Récence (R) :** Nombre de jours depuis le dernier achat.
    - **Fréquence (F) :** Nombre total de commandes effectuées.
    - **Montant (M) :** Chiffre d'affaires total généré par le client.
-3. Attribuer des scores de 1 à 5 (via quantiles) et catégoriser les clients en **segments stratégiques** (*Champions*, *Fidèles*, *À Risque*, *Perdus*, etc.).
+3. Attribuer des scores de 1 à 5 (via quantiles) et catégoriser les clients en **segments stratégiques** (*Champions*, *Fidèles*, *À Risque*, *Perdus*, etc.). Les segments sont définis sur la base de R et F ; M est conservé en tant que niveau de valeur indépendant, servant à établir des priorités au sein de chaque segment.
 4. Concevoir un **tableau de bord décisionnel sur Power BI** pour permettre aux équipes marketing de piloter des campagnes ciblées.
 
 ---
@@ -34,21 +35,26 @@ Dans le secteur du e-commerce, l'acquisition de nouveaux clients coûte nettemen
 
 ## 🔄 Pipeline de Données & Architecture du Projet
 
+---
+
+## 📂 Structure du Projet
+
+```text
+rfm-customer-segmentation/
 ├── data/
-│   ├── raw/                 # Données brutes d'origine
-│   ├── data_clean.csv       # Données nettoyées (valeurs manquantes et retours traités)
-│   ├── rfm_metrics.csv      # Métriques brutes R, F, M calculées par client
-│   ├── rfm_scores.csv       # Scores RFM (1 à 5)
-│   └── rfm_segmented.csv    # Segments finaux attribués
-├── scripts/
-│   ├── 1_data_cleaning.py   # Nettoyage des données et filtrage
-│   ├── 2_rfm_metrics.py     # Calcul des valeurs R, F, M
-│   ├── 3_rfm_scores.py      # Découpage en quantiles (Scores 1-5)
-│   └── 4_segmentation.py    # Cartographie des segments business
-├── power_bi/
-│   ├── RFM_Customer_Segmentation.pbix
-│   └── dashboard_preview.png
-└── README.md
+│   ├── raw/                  # Jeu de données d'origine
+│   └── processed/            # Données nettoyées et tables RFM générées
+├── scripts/                  # Scripts Python de traitement et modélisation
+├── power_bi/                 # Rapport Power BI (.pbix) et visuels
+├── .gitignore
+├── requirements.txt          # Dépendances Python
+└── README.md                 # Documentation du projet
+
+🔄 Pipeline de Traitement des Données (Workflow)
+Le traitement des données suit un flux séquentiel en 4 étapes clés :
+[Données Brutes] ➡️ [1. Nettoyage] ➡️ [2. Calcul RFM] ➡️ [3. Scoring Quantiles] ➡️ [4. Segmentation] ➡️ [Power BI Dashboard]
+
+
 ---
 
 ## 📈 Indicateurs Clés & Recommandations Business
@@ -68,3 +74,4 @@ Dans le secteur du e-commerce, l'acquisition de nouveaux clients coûte nettemen
 
 **[BAKRIM / Fouzia]**  
 *Data Analyst* — [Profil LinkedIn](https://linkedin.com/in/fouzia-bakrim-204872210)
+```

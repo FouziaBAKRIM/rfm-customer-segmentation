@@ -14,7 +14,7 @@ rfm['R_Score'] = pd.qcut(rfm['Recency'], q=5, labels=[5, 4, 3, 2, 1])
 rfm['F_Score'] = pd.qcut(rfm['Frequency'].rank(method='first'), q=5, labels=[1, 2, 3, 4, 5])
 
 # 4. Score de Montant (M_Score)
-rfm['M_Score'] = pd.qcut(rfm['Monetary'], q=5, labels=[1, 2, 3, 4, 5])
+rfm['M_Score'] = pd.qcut(rfm['Monetary']rank(method='first'), q=5, labels=[1, 2, 3, 4, 5])
 
 # Conversion des colonnes de score en entiers
 rfm['R_Score'] = rfm['R_Score'].astype(int)

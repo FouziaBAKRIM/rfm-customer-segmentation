@@ -8,18 +8,17 @@ def assign_segment(df):
     r = df['R_Score']
     f = df['F_Score']
     
-    if r >= 4 and f >= 4:
+     if r >= 4 and f >= 4:
         return 'Champions'
-    elif r >= 3 and f >= 3:
-        return 'Clients Fideles'
-    elif r >= 4 and f <= 2:
-        return 'Nouveaux / Potentiels'
-    elif r <= 2 and f >= 3:
-        return 'A Risque'
-    elif r == 3 and f == 3:
+    if r == 3 and f == 3:              
         return 'Nécessitent Attention'
-    else:
-        return 'Perdus / Inactifs'
+    if r >= 3 and f >= 3:
+        return 'Clients Fideles'
+    if r >= 4 and f <= 2:
+        return 'Nouveaux / Potentiels'
+    if r <= 2 and f >= 3:
+        return 'A Risque'
+    return 'Perdus / Inactifs'
 
 # 3. Application de la fonction
 print("Application des règles de segmentation...")
