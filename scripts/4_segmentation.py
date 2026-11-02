@@ -1,48 +1,60 @@
+import logging
+from pathlib import Path
+import sys
 import pandas as pd
 
-# 1. Chargement des scores RFM
-rfm = pd.read_csv('rfm_scores.csv', index_col='CustomerID')
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+logger = logging.getLogger(__name__)
 
-# 2. Fonction de correspondance pour attribuer un segment
-def assign_segment(df):
-    r = df['R_Score']
-    f = df['F_Score']
-    
-     if r >= 4 and f >= 4:
-        return 'Champions'
-    if r == 3 and f == 3:              
-        return 'Nécessitent Attention'
-    if r >= 3 and f >= 3:
-        return 'Clients Fideles'
-    if r >= 4 and f <= 2:
-        return 'Nouveaux / Potentiels'
-    if r <= 2 and f >= 3:
-        return 'A Risque'
-    return 'Perdus / Inactifs'
+ROOT = Path(__file__).resolve().parent.parent
+DATA_PROC = ROOT / "data" / "processed"
 
-# 3. Application de la fonction
-print("Application des règles de segmentation...")
-rfm['Segment'] = rfm.apply(assign_segment, axis=1)
 
-# 4. Analyse de la répartition des clients par segment
-print("\n--- Répartition des clients par Segment ---")
-segment_counts = rfm['Segment'].value_counts()
-print(segment_counts)
+def segment_customers():
+  logger.info("🎯 Début de l'étape 4 : Segmentation marketing des clients...")
 
-print("\n--- Pourcentage de clients par Segment ---")
-segment_perc = rfm['Segment'].value_counts(normalize=True) * 100
-print(segment_perc.round(2).astype(str) + ' %')
+  input_path = DATA_PROC / "rfm_scores.csv"
+  output_path = DATA_PROC / "final_rfm_segments.csv"
 
-# 5. Calcul des métriques moyennes par segment (pour vérifier la cohérence)
-print("\n--- Moyennes (Recency, Frequency, Monetary) par Segment ---")
-segment_summary = rfm.groupby('Segment').agg({
-    'Recency': 'mean',
-    'Frequency': 'mean',
-    'Monetary': ['mean', 'count']
-}).round(2)
-print(segment_summary)
+  if not input_path.exists():
+    logger.error(f"Fichier introuvable : {input_path}")
+    sys.exit(1)
 
-# 6. Sauvegarde du fichier final segmenté
-rfm.to_csv('rfm_segmented.csv')
-rfm.to_excel('rfm_segmented.xlsx') # Également en Excel pour l'intégration Power BI
-print("\nLe fichier final a été sauvegardé sous 'rfm_segmented.csv' et 'rfm_segmented.xlsx'.")
+  try:
+    rfm = pd.read_csv(input_path)
+
+    def rfm_segment(row):
+      r = row["R_Score"]
+      f = row["F_Score"]
+
+      if r >= 4 and f >= 4:
+        return "Champions"
+      elif r >= 3 and f >= 3:
+        return "Fidèles"
+      elif r >= 4 and f <= 2:
+        return "Nouveaux / Prometteurs"
+      elif r <= 2 and f >= 4:
+        return "À Risque (Loyaux perdus)"
+      elif r <= 2 and f <= 2:
+        return "Perdus"
+      else:
+        return "Clients Réguliers"
+
+    rfm["Segment"] = rfm.apply(rfm_segment, axis=1)
+    rfm.to_csv(output_path, index=False)
+    logger.info(
+        f"✅ Segmentation terminée ! Fichier final prêt pour Power BI :"
+        f" {output_path}"
+    )
+
+  except Exception as e:
+    logger.error(f"Erreur lors de la segmentation : {e}")
+    sys.exit(1)
+
+
+if __name__ == "__main__":
+  segment_customers()

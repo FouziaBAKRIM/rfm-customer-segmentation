@@ -1,51 +1,48 @@
+import logging
+from pathlib import Path
+import sys
 import pandas as pd
-# 1. Chargement des données
-# Remplacez 'data.csv' par le nom exact de votre fichier CSV s'il est différent
-print("Chargement du jeu de données...")
-try:
-    df = pd.read_csv('data.csv', encoding='ISO-8859-1')
-except FileNotFoundError:
-    print("Erreur : Fichier introuvable. Vérifiez le nom de votre fichier CSV.")
-    exit()
 
-print(f"Taille initiale du dataset : {df.shape[0]} lignes et {df.shape[1]} colonnes.\n")
-# 2. Aperçu des données
-print("--- Aperçu des 5 premières lignes ---")
-print(df.head())
-print("\n--- Informations sur les colonnes et types de données ---")
-print(df.info())
-# 3. Traitement des valeurs manquantes (Suppression des CustomerID nuls)
-df_clean = df.dropna(subset=['CustomerID'])
-print(f"\nLignes après suppression des CustomerID manquants : {len(df_clean)}")
+# Configuration du logging (horodatage + niveau de sévérité)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+logger = logging.getLogger(__name__)
 
-# 4. Suppression des annulations (Invoices commençant par 'C' ou Quantités <= 0)
-df_clean = df_clean[~df_clean['InvoiceNo'].astype(str).str.startswith('C')]
-df_clean = df_clean[df_clean['Quantity'] > 0]
+# Chemins robustes basés sur pathlib
+ROOT = Path(__file__).resolve().parent.parent
+DATA_RAW = ROOT / "data" / "raw"
+DATA_PROC = ROOT / "data" / "processed"
 
-# 5. Suppression des prix unitaires absurdes (Prix <= 0)
-df_clean = df_clean[df_clean['UnitPrice'] > 0]
 
-before = len(df_clean)
-df_clean = df_clean.drop_duplicates()
-df_clean = df_clean[df_clean['UnitPrice'] > 0].copy()
-print(f"Duplicate rows removed: {before - len(df_clean)}")
+def clean_data():
+  logger.info("🧹 Début de l'étape 1 : Nettoyage des données...")
 
-# 6. Création de la colonne du Montant Total (TotalAmount)
-df_clean['TotalAmount'] = df_clean['Quantity'] * df_clean['UnitPrice']
+  input_path = DATA_RAW / "data.csv"
+  output_path = DATA_PROC / "cleaned_data.csv"
 
-# 7. Conversion de la colonne InvoiceDate au format Date/Heure
-df_clean['InvoiceDate'] = pd.to_datetime(df_clean['InvoiceDate'])
+  if not input_path.exists():
+    logger.error(f"Fichier introuvable : {input_path}")
+    sys.exit(1)
 
-# 8. Conversion de CustomerID en entier (pour enlever le .0 à la fin)
-df_clean['CustomerID'] = df_clean['CustomerID'].astype(int)
+  DATA_PROC.mkdir(parents=True, exist_ok=True)
 
-# --- Bilan du nettoyage ---
-print("\n" + "="*40)
-print("NETTOYAGE TERMINÉ AVEC SUCCÈS !")
-print("="*40)
-print(f"Nombre de lignes conservées : {len(df_clean)}")
-print(f"Nombre de lignes supprimées : {len(df) - len(df_clean)}")
+  try:
+    df = pd.read_csv(input_path, encoding="ISO-8859-1")
+  except Exception as e:
+    logger.error(f"Erreur lors de la lecture du fichier CSV : {e}")
+    sys.exit(1)
 
-# 9. Sauvegarde du fichier propre
-df_clean.to_csv('data_clean.csv', index=False)
-print("\nLe fichier nettoyé a été sauvegardé sous le nom 'data_clean.csv'.")
+  df = df.dropna(subset=["CustomerID"])
+  df = df.drop_duplicates()
+  df = df[(df["Quantity"] > 0) & (df["UnitPrice"] > 0)]
+  df["TotalPrice"] = df["Quantity"] * df["UnitPrice"]
+
+  df.to_csv(output_path, index=False)
+  logger.info(f"✅ Données nettoyées sauvegardées dans : {output_path}")
+
+
+if __name__ == "__main__":
+  clean_data()
