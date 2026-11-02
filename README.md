@@ -35,8 +35,6 @@ Dans le secteur du e-commerce, l'acquisition de nouveaux clients coûte nettemen
 
 ## 📂 Structure & Pipeline du Projet
 
-## 📂 Structure & Pipeline du Projet
-
 ```text
 rfm-customer-segmentation/
 ├── data/
@@ -97,9 +95,4 @@ Fidèles : Offres de surclassement (upselling) et programmes de parrainage.
 ✒️ Auteur
 Fouzia Bakrim
 
-Data Analyst 
-<p>
-  <a href="https://linkedin.com/in/fouzia-bakrim-204872210" target="_blank">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Logo"/>
-  </a>
-</p>
+Data Analyst  [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/fouzia-bakrim-204872210)
