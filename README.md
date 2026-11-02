@@ -19,59 +19,76 @@ Dans le secteur du e-commerce, l'acquisition de nouveaux clients coûte nettemen
    - **Récence (R) :** Nombre de jours depuis le dernier achat.
    - **Fréquence (F) :** Nombre total de commandes effectuées.
    - **Montant (M) :** Chiffre d'affaires total généré par le client.
-3. Attribuer des scores de 1 à 5 (via quantiles) et catégoriser les clients en **segments stratégiques** (*Champions*, *Fidèles*, *À Risque*, *Perdus*, etc.). Les segments sont définis sur la base de R et F ; M est conservé en tant que niveau de valeur indépendant, servant à établir des priorités au sein de chaque segment.
+3. Attribuer des scores de 1 à 5 (via quantiles) et catégoriser les clients en **segments stratégiques** (*Champions*, *Fidèles*, *À Risque*, *Perdus*, etc.). Les segments sont définis sur la base de R et F ; M est conservé en tant que valeur indépendante pour établir les priorités.
 4. Concevoir un **tableau de bord décisionnel sur Power BI** pour permettre aux équipes marketing de piloter des campagnes ciblées.
 
 ---
 
 ## 🛠️ Stack Technique
 
-- **Langage & Environnement :** Python 3.x | VS Code
+- **Langage & Environnement :** Python 3.x | VS Code / Cursor
 - **Analyse & Traitement de Données :** `pandas`, `numpy`, `openpyxl`
 - **Data Visualization & BI :** Power BI Desktop, DAX (*Data Analysis Expressions*)
 - **Gestion de Version :** Git & GitHub
 
 ---
 
-## 🔄 Pipeline de Données & Architecture du Projet
-
----
-
-## 📂 Structure du Projet
+## 📂 Structure & Pipeline du Projet
 
 ```text
 rfm-customer-segmentation/
 ├── data/
-│   ├── raw/                  # Jeu de données d'origine
-│   └── processed/            # Données nettoyées et tables RFM générées
-├── scripts/                  # Scripts Python de traitement et modélisation
-├── power_bi/                 # Rapport Power BI (.pbix) et visuels
+│   ├── raw/                # Jeu de données d'origine
+│   └── processed/          # Données nettoyées et tables RFM générées
+├── scripts/                # Scripts Python de traitement et modélisation
+├── power_bi/               # Rapport Power BI (.pbix) et visuels
 ├── .gitignore
-├── requirements.txt          # Dépendances Python
-└── README.md                 # Documentation du projet
+├── requirements.txt        # Dépendances Python
+└── README.md               # Documentation du projet ```
 
-🔄 Pipeline de Traitement des Données (Workflow)
+### 🔄 Pipeline de Traitement des Données (Workflow)
 Le traitement des données suit un flux séquentiel en 4 étapes clés :
-[Données Brutes] ➡️ [1. Nettoyage] ➡️ [2. Calcul RFM] ➡️ [3. Scoring Quantiles] ➡️ [4. Segmentation] ➡️ [Power BI Dashboard]
+`[Données Brutes] ➡️ [1. Nettoyage] ➡️ [2. Calcul RFM] ➡️ [3. Scoring Quantiles] ➡️ [4. Segmentation] ➡️ [Power BI Dashboard]`
 
+🚀 Quickstart & Installation
+Pour cloner et exécuter ce projet localement :
 
----
+Cloner le dépôt :
 
-## 📈 Indicateurs Clés & Recommandations Business
+Bash
+git clone [https://github.com/votre-nom/rfm-customer-segmentation.git](https://github.com/votre-nom/rfm-customer-segmentation.git)
+cd rfm-customer-segmentation
+Créer et activer l'environnement virtuel :
 
-### 💡 Principaux Enseignements (Key Insights) :
-- **Règle des 80/20 (Loi de Pareto) :** Le segment des **Champions** et des **Clients Fidèles** représente une minorité de la base client mais génère la majorité du chiffre d'affaires total.
-- **Rétention Client :** Identification d'un volume significatif de clients dans le segment **À Risque**, nécessitant des actions de réengagement urgentes avant leur passage définitif dans le segment **Perdus**.
+Bash
+python -m venv .venv
+.venv\Scripts\activate          # Sous Windows (PowerShell)
+# source .venv/bin/activate     # Sous Mac / Linux
+Installer les dépendances :
 
-### 🚀 Recommandations Marketing :
-1. **Champions :** Programme VIP, accès anticipé aux nouveaux produits et récompenses exclusives.
-2. **Fidèles :** Offres de surclassement (*upselling*) et programmes de parrainage.
-3. **À Risque / Requièrent de l'Attention :** Campagnes d'emailing ciblées avec remises personnalisées pour stimuler le réachat.
+Bash
+pip install -r requirements.txt
+Exécuter le pipeline séquentiellement :
 
----
+Bash
+python scripts/1_data_cleaning.py
+python scripts/2_rfm_metrics.py
+python scripts/3_rfm_scores.py
+python scripts/4_segmentation.py
+📈 Indicateurs Clés & Recommandations Business
+💡 Principaux Enseignements (Key Insights) :
+Règle des 80/20 (Loi de Pareto) : Le segment des Champions et des Clients Fidèles représente une minorité de la base client mais génère la majorité du chiffre d'affaires total.
 
-## ✒️ Auteur
+Rétention Client : Identification d'un volume significatif de clients dans le segment À Risque, nécessitant des actions de réengagement urgentes avant leur passage définitif dans le segment Perdus.
 
-**[BAKRIM / Fouzia]**  
-*Data Analyst* — [Profil LinkedIn](https://linkedin.com/in/fouzia-bakrim-204872210)
-```
+🚀 Recommandations Marketing :
+Champions : Programme VIP, accès anticipé aux nouveaux produits et récompenses exclusives.
+
+Fidèles : Offres de surclassement (upselling) et programmes de parrainage.
+
+À Risque / Requièrent de l'Attention : Campagnes d'emailing ciblées avec remises personnalisées pour stimuler le réachat.
+
+✒️ Auteur
+Fouzia Bakrim
+
+Data Analyst — Profil LinkedIn
