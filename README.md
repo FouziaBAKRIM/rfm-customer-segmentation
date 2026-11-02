@@ -45,53 +45,71 @@ rfm-customer-segmentation/
 ├── .gitignore
 ├── requirements.txt        # Dépendances Python
 └── README.md               # Documentation du projet
-🔄 Pipeline de Traitement des Données (Workflow)
+```
+
+### Pipeline de traitement des données
+
 Le traitement des données suit un flux séquentiel en 4 étapes clés :
 
+```text
 [Données Brutes] ➡️ [1. Nettoyage] ➡️ [2. Calcul RFM] ➡️ [3. Scoring Quantiles] ➡️ [4. Segmentation] ➡️ [Power BI Dashboard]
+```
 
-🚀 Quickstart & Installation
+---
+
+## 🚀 Quickstart & Installation
+
 Pour cloner et exécuter ce projet localement :
 
 1. Cloner le dépôt :
 
-Bash
-git clone [https://github.com/votre-nom/rfm-customer-segmentation.git](https://github.com/votre-nom/rfm-customer-segmentation.git)
+```bash
+git clone https://github.com/votre-nom/rfm-customer-segmentation.git
 cd rfm-customer-segmentation
+```
+
 2. Créer et activer l'environnement virtuel :
 
-Bash
+```bash
 python -m venv .venv
 .venv\Scripts\activate          # Sous Windows (PowerShell)
 # source .venv/bin/activate     # Sous Mac / Linux
+```
+
 3. Installer les dépendances :
 
-Bash
+```bash
 pip install -r requirements.txt
+```
+
 4. Exécuter le pipeline séquentiellement :
 
-Bash
+```bash
 python scripts/1_data_cleaning.py
 python scripts/2_rfm_metrics.py
 python scripts/3_rfm_scores.py
 python scripts/4_segmentation.py
-📈 Indicateurs Clés & Recommandations Business
-💡 Principaux Enseignements (Key Insights) :
-Règle des 80/20 (Loi de Pareto) : Le segment des Champions et des Clients Fidèles représente une minorité de la base client mais génère la majorité du chiffre d'affaires total.
+```
 
-Rétention Client : Identification d'un volume significatif de clients dans le segment À Risque, nécessitant des actions de réengagement urgentes avant leur passage définitif dans le segment Perdus.
+---
 
-🚀 Recommandations Marketing :
-Champions : Programme VIP, accès anticipé aux nouveaux produits et récompenses exclusives.
+## 📈 Indicateurs Clés & Recommandations Business
 
-Fidèles : Offres de surclassement (upselling) et programmes de parrainage.
+### Principaux enseignements
 
-À Risque / Requièrent de l'Attention : Campagnes d'emailing ciblées avec remises personnalisées pour stimuler le réachat.
+- **Règle des 80/20 (Loi de Pareto) :** le segment des Champions et des Clients Fidèles représente une minorité de la base client mais génère la majorité du chiffre d'affaires total.
+- **Rétention client :** identification d'un volume significatif de clients dans le segment À Risque, nécessitant des actions de réengagement urgentes avant leur passage définitif dans le segment Perdus.
 
-✒️ Auteur
-Fouzia Bakrim
+### Recommandations marketing
 
-Data Analyst
+- **Champions :** programme VIP, accès anticipé aux nouveaux produits et récompenses exclusives.
+- **Fidèles :** offres de surclassement (upselling) et programmes de parrainage.
+- **À Risque / Requièrent de l'Attention :** campagnes d'emailing ciblées avec remises personnalisées pour stimuler le réachat.
 
+---
 
-<FollowUp label="Veux-tu qu'on valide ensemble les commandes Git pour pousser cette version finale ?" quer
+## ✒️ Auteur
+
+**Fouzia Bakrim** — Data Analyst
+
+[Profil LinkedIn](https://www.linkedin.com/in/fouzia-bakrim-204872210)
