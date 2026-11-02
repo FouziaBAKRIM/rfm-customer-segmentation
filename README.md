@@ -35,6 +35,8 @@ Dans le secteur du e-commerce, l'acquisition de nouveaux clients coûte nettemen
 
 ## 📂 Structure & Pipeline du Projet
 
+## 📂 Structure & Pipeline du Projet
+
 ```text
 rfm-customer-segmentation/
 ├── data/
@@ -44,7 +46,7 @@ rfm-customer-segmentation/
 ├── power_bi/               # Rapport Power BI (.pbix) et visuels
 ├── .gitignore
 ├── requirements.txt        # Dépendances Python
-└── README.md               # Documentation du projet ```
+└── README.md               # Documentation du projet
 
 ### 🔄 Pipeline de Traitement des Données (Workflow)
 Le traitement des données suit un flux séquentiel en 4 étapes clés :
@@ -53,28 +55,32 @@ Le traitement des données suit un flux séquentiel en 4 étapes clés :
 🚀 Quickstart & Installation
 Pour cloner et exécuter ce projet localement :
 
-Cloner le dépôt :
+1- Cloner le dépôt :
 
-Bash
+```bash
 git clone [https://github.com/votre-nom/rfm-customer-segmentation.git](https://github.com/votre-nom/rfm-customer-segmentation.git)
-cd rfm-customer-segmentation
-Créer et activer l'environnement virtuel :
+cd rfm-customer-segmentation ```
 
-Bash
+2- Créer et activer l'environnement virtuel :
+
+```bash
 python -m venv .venv
 .venv\Scripts\activate          # Sous Windows (PowerShell)
-# source .venv/bin/activate     # Sous Mac / Linux
-Installer les dépendances :
+# source .venv/bin/activate     # Sous Mac / Linux ```
 
-Bash
-pip install -r requirements.txt
-Exécuter le pipeline séquentiellement :
+3- Installer les dépendances :
 
-Bash
+```bash
+pip install -r requirements.txt ```
+
+4- Exécuter le pipeline séquentiellement :
+
+```bash
 python scripts/1_data_cleaning.py
 python scripts/2_rfm_metrics.py
 python scripts/3_rfm_scores.py
-python scripts/4_segmentation.py
+python scripts/4_segmentation.py ```
+
 📈 Indicateurs Clés & Recommandations Business
 💡 Principaux Enseignements (Key Insights) :
 Règle des 80/20 (Loi de Pareto) : Le segment des Champions et des Clients Fidèles représente une minorité de la base client mais génère la majorité du chiffre d'affaires total.
@@ -91,4 +97,9 @@ Fidèles : Offres de surclassement (upselling) et programmes de parrainage.
 ✒️ Auteur
 Fouzia Bakrim
 
-Data Analyst — Profil LinkedIn
+Data Analyst 
+<p>
+  <a href="https://linkedin.com/in/fouzia-bakrim-204872210" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Logo"/>
+  </a>
+</p>
