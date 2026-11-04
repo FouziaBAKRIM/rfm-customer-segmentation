@@ -128,5 +128,4 @@ python run_pipeline.py
 
 **Fouzia Bakrim** — Data Analyst
 
-[Profil LinkedIn](https://www.linkedin.com/in/fouzia-bakrim-204872210)
-```
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profil-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/fouzia-bakrim)
