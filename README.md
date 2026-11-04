@@ -106,7 +106,7 @@ python run_pipeline.py
 ├── dashboard.pbix          # Fichier Power BI
 ├── requirements.txt
 └── README.md
-
+```
 
 ---
 
