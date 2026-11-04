@@ -1,110 +1,116 @@
-# 📊 Segmentation Client RFM & Analyse E-Commerce
+# 📊 Segmentation Client RFM & K-Means Pipeline
 
-Un pipeline complet de Data Analytics combinant **Python (Pandas)** pour le traitement des données et la modélisation RFM, et **Power BI** pour la création d'un tableau de bord décisionnel interactif.
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-Data_Analysis-150458?style=flat&logo=pandas)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Machine_Learning-F79939?style=flat&logo=scikit-learn)
+![PowerBI](https://img.shields.io/badge/Power_BI-Business_Intelligence-F2C94C?style=flat&logo=powerbi&logoColor=black)
+![Pandera](https://img.shields.io/badge/Pandera-Schema_Validation-E25555?style=flat)
 
----
+## 📌 Contexte & Objectifs
+### 🎯 Contexte Métier
+Dans le secteur du e-commerce, traiter l'ensemble des clients de la même manière mène à un manque d'efficacité marketing et à une perte de rétention. Pour optimiser les coûts d'acquisition et maximiser la valeur à vie du client (*Customer Lifetime Value*), il est essentiel de comprendre précisément la dynamique des achats.
 
-## 📸 Aperçu du Tableau de Bord
+Ce projet met en place une solution end-to-end permettant de transformer des données de transactions brutes en leviers d'action marketing concrets en combinant :
+1. Une **segmentation métier (RFM)** basée sur des règles empiriques.
+2. Un **clustering non surveillé (K-Means)** pour découvrir des comportements d'achat sous-jacents et isoler les profils atypiques.
 
-![Aperçu du Tableau de Bord Power BI](./power_bi/dashboard_preview.png)
-
----
-
-## 🎯 Contexte & Objectifs Business
-
-Dans le secteur du e-commerce, l'acquisition de nouveaux clients coûte nettement plus cher que la fidélisation des clients existants. L'objectif de ce projet est de :
-
-1. Nettoyer et transformer les données brutes de transactions e-commerce (`Online Retail Dataset`).
-2. Calculer les métriques individuelles **RFM** :
-   - **Récence (R) :** Nombre de jours depuis le dernier achat.
-   - **Fréquence (F) :** Nombre total de commandes effectuées.
-   - **Montant (M) :** Chiffre d'affaires total généré par le client.
-3. Attribuer des scores de 1 à 5 (via quantiles) et catégoriser les clients en **segments stratégiques** (*Champions*, *Fidèles*, *À Risque*, *Perdus*, etc.). Les segments sont définis sur la base de R et F ; M est conservé en tant que valeur indépendante pour établir les priorités.
-4. Concevoir un **tableau de bord décisionnel sur Power BI** pour permettre aux équipes marketing de piloter des campagnes ciblées.
+### 🚀 Objectifs du Projet
+* **Automatiser le traitement de données** : Construire un pipeline Python modulaire, robuste et reproductible de la donnée brute au dataset final.
+* **Garantir la qualité des données** : Valider la structure et les types de données à chaque étape grâce à des contrats de schéma (**Pandera**).
+* **Identifier les profils clients clés** : Structurer la base clients en segments actionnables (*Champions, Clients Fidèles, À Risque, etc.*).
+* **Mettre à disposition un outil décisionnel** : Concevoir un tableau de bord **Power BI** interactif et intuitif pour les équipes marketing et la direction.
 
 ---
 
 ## 🛠️ Stack Technique
 
-- **Langage & Environnement :** Python 3.x | VS Code / Cursor
-- **Analyse & Traitement de Données :** `pandas`, `numpy`, `openpyxl`
-- **Data Visualization & BI :** Power BI Desktop, DAX (*Data Analysis Expressions*)
-- **Gestion de Version :** Git & GitHub
+| Catégorie | Technologie / Bibliothèque | Usage principal |
+| :--- | :--- | :--- |
+| **Langage** | Python 3.10+ | Traitement des données et orchestration du pipeline |
+| **Data Manipulation** | Pandas, NumPy | Nettoyage, agrégations et calcul des métriques RFM |
+| **Machine Learning** | Scikit-Learn | Normalisation (`StandardScaler`) & Clustering (`KMeans`) |
+| **Data Quality** | Pandera | Validation explicite des schémas de données entre chaque étape |
+| **Business Intelligence** | Power BI, DAX | Dashboard interactif, modélisation en étoile et mesures DAX |
+| **Environnement** | Git, GitHub | Versioning du code et documentation du projet |
+
+---
+## 💡 Défis Techniques & Solutions Apportées
+
+* **Gestion des valeurs extrêmes (Outliers) dans le K-Means** : Les clients VIP à très fort panier moyen faussent souvent le clustering classique. L'utilisation d'une normalisation adaptée (`StandardScaler`) a permis d'isoler ces profils ultra-VIP dans des clusters dédiés (Clusters 1, 2, 3) tout en conservant un cluster principal homogène (Cluster 0).
+* **Data Integrity & Robustesse du Pipeline** : Pour éviter toute casse lors du chargement dans Power BI, des schémas de validation **Pandera** vérifient la présence des colonnes, le non-nullité des identifiants (`CustomerID`) et les plages de valeurs autorisées (scores de 1 à 5).
 
 ---
 
-## 📂 Structure & Pipeline du Projet
+## 🏗️ Architecture du Pipeline Python
+Le traitement des données est entièrement automatisé sous forme d'un pipeline modulaire fiable, validé étape par étape grâce au framework **Pandera** :
 
-```text
-rfm-customer-segmentation/
-├── data/
-│   ├── raw/                # Jeu de données d'origine
-│   └── processed/          # Données nettoyées et tables RFM générées
-├── scripts/                # Scripts Python de traitement et modélisation
-├── power_bi/               # Rapport Power BI (.pbix) et visuels
-├── .gitignore
-├── requirements.txt        # Dépendances Python
-└── README.md               # Documentation du projet
-```
+* **1. Nettoyage (`1_cleaning.py`)** : Traitement des données d'achats (gestion des valeurs manquantes et suppression des anomalies).
+* **2. Extraction RFM (`2_raw_rfm.py`)** : Calcul des métriques brutes (*Recency, Frequency, Monetary*).
+* **3. Scoring (`3_scores.py`)** : Attribution des scores de 1 à 5 pour R, F et M.
+* **4. Segmentation Métier (`4_segments.py`)** : Classification marketing (*Champions, Clients Fidèles, A Risque, Perdus/Inactifs, Nouveaux/Potentiels*).
+* **5. Machine Learning (`5_kmeans_clustering.py`)** : Normalisation (`StandardScaler`) et clustering **K-Means**, avec validation finale du schéma de données.
 
-### Pipeline de traitement des données
+## 📈 Dashboard Power BI & Insights Métier
 
-Le traitement des données suit un flux séquentiel en 4 étapes clés :
+Le fichier de sortie généré alimente un tableau de bord Power BI interactif croisant la segmentation par règles métier et l'approche Machine Learning.
 
-```text
-[Données Brutes] ➡️ [1. Nettoyage] ➡️ [2. Calcul RFM] ➡️ [3. Scoring Quantiles] ➡️ [4. Segmentation] ➡️ [Power BI Dashboard]
-```
+![Dashboard Power BI - RFM & K-Means](./power_bi/dashboard_preview.png)
+
+### 💡 Insights Clés :
+* **Performance Globale** : Analyse de **4 338 clients** générant un chiffre d'affaires total de **9 M$**.
+* **Segment Champions** : Représente **26,26 %** de la base clients et génère la majeure partie du CA (**5,9 M$**).
+* **Apport du Clustering K-Means** :
+  * **Cluster 0** : Regroupe le cœur de cible (**95,5 %** des clients).
+  * **Clusters 1, 2 et 3** : Isolent des micro-groupes à très forte valeur (**VIP**) et des comportements d'achat atypiques.
+
 
 ---
 
-## 🚀 Quickstart & Installation
+## 🛠️ Modélisation des Données (Power BI)
+* **Table de faits** : `cleaned_data` (Transactions).
+* **Table de dimensions** : `rfm_segmented` / `final_rfm_segments` (Profils clients, Scores RFM, Segments et Clusters).
+* **Table dédiée DAX** : `_mesures` pour une gestion propre des KPIs (*Total CA, Total Clients, Recence Moyenne*).
+* **Relation** : Liaison `1 à *` via la clé d'unicité `CustomerID`.
 
-Pour cloner et exécuter ce projet localement :
+---
 
-1. Cloner le dépôt :
+## 🚀 Installation & Exécution
 
+### 1. Cloner le projet
 ```bash
-git clone https://github.com/votre-nom/rfm-customer-segmentation.git
-cd rfm-customer-segmentation
+git clone [https://github.com/votre-user/nom-du-repo.git](https://github.com/votre-user/nom-du-repo.git)
+cd nom-du-repo
 ```
 
-2. Créer et activer l'environnement virtuel :
-
-```bash
-python -m venv .venv
-.venv\Scripts\activate          # Sous Windows (PowerShell)
-# source .venv/bin/activate     # Sous Mac / Linux
-```
-
-3. Installer les dépendances :
-
+2. Installer les dépendances
 ```bash
 pip install -r requirements.txt
 ```
-
-4. Exécuter le pipeline séquentiellement :
-
+3. Lancer le pipeline complet
 ```bash
-python scripts/1_data_cleaning.py
-python scripts/2_rfm_metrics.py
-python scripts/3_rfm_scores.py
-python scripts/4_segmentation.py
+python run_pipeline.py
 ```
+
+📂 Structure du Répertoire
+├── data/
+│   ├── raw/
+│   └── processed/          # CSV nettoyés et prêts pour Power BI
+├── power bi/
+│   └── dash_2.png          # Capture d'écran du Dashboard Power BI
+├── scripts/
+│   ├── 1_cleaning.py
+│   ├── 2_raw_rfm.py
+│   ├── 3_scores.py
+│   ├── 4_segments.py
+│   └── 5_kmeans_clustering.py
+├── run_pipeline.py         # Orchestrateur principal
+├── dashboard.pbix          # Fichier Power BI
+├── requirements.txt
+└── README.md
+
 
 ---
 
-## 📈 Indicateurs Clés & Recommandations Business
-
-### Principaux enseignements
-
-- **Règle des 80/20 (Loi de Pareto) :** le segment des Champions et des Clients Fidèles représente une minorité de la base client mais génère la majorité du chiffre d'affaires total.
-- **Rétention client :** identification d'un volume significatif de clients dans le segment À Risque, nécessitant des actions de réengagement urgentes avant leur passage définitif dans le segment Perdus.
-
-### Recommandations marketing
-
-- **Champions :** programme VIP, accès anticipé aux nouveaux produits et récompenses exclusives.
-- **Fidèles :** offres de surclassement (upselling) et programmes de parrainage.
-- **À Risque / Requièrent de l'Attention :** campagnes d'emailing ciblées avec remises personnalisées pour stimuler le réachat.
 
 ---
 
