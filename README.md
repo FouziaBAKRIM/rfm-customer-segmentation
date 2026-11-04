@@ -90,6 +90,7 @@ pip install -r requirements.txt
 ```bash
 python run_pipeline.py
 ```
+---
 📂 Structure du Répertoire
 ├── data/
 │   ├── raw/
@@ -107,8 +108,6 @@ python run_pipeline.py
 ├── requirements.txt
 └── README.md
 ```
-
----
 
 
 ---
