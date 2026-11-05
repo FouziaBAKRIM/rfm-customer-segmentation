@@ -104,7 +104,7 @@ python run_pipeline.py
 
 ---
 
-```text
+
 📂 Structure du Répertoire
 ├── data/
 │   ├── raw/
@@ -122,9 +122,6 @@ python run_pipeline.py
 ├── requirements.txt
 └── README.md
 
----
-
----
 
 ---
 
@@ -132,4 +129,4 @@ python run_pipeline.py
 
 **Fouzia Bakrim** — Data Analyst
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profil-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/fouzia-bakrim)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profil-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/fouzia-bakrim-204872210)
