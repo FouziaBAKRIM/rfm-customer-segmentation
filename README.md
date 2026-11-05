@@ -104,24 +104,25 @@ python run_pipeline.py
 
 ---
 
+## 📂 Structure du Répertoire
 
-📂 Structure du Répertoire
+<pre>
 ├── data/
 │   ├── raw/
-│   └── processed/          # CSV nettoyés et prêts pour Power BI
+│   └── processed/          CSV nettoyés et prêts pour Power BI
 ├── power bi/
-│   └── dash_2.png          # Capture d'écran du Dashboard Power BI
+│   └── dash_2.png          Capture d'écran du Dashboard Power BI
 ├── scripts/
 │   ├── 1_cleaning.py
 │   ├── 2_raw_rfm.py
 │   ├── 3_scores.py
 │   ├── 4_segments.py
 │   └── 5_kmeans_clustering.py
-├── run_pipeline.py         # Orchestrateur principal
-├── dashboard.pbix          # Fichier Power BI
+├── run_pipeline.py         Orchestrateur principal
+├── dashboard.pbix          Fichier Power BI
 ├── requirements.txt
 └── README.md
-
+</pre>
 
 ---
 
